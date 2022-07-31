@@ -43,12 +43,31 @@ function onGalaryContainerClick(e) {
 
   const onClickedImageUrl = e.target.dataset.source;
 
-  const instance = basicLightbox.create(`<img src ="${onClickedImageUrl}"/>`);
+  const instance = basicLightbox.create(`<img src ="${onClickedImageUrl}"/>`, {
+    onShow: () => {
+      document.querySelector(".gallery").onclick;
+
+      document.addEventListener("keydown", (e) => {
+        if (e.code === "Escape") {
+          instance.close();
+        }
+      });
+    },
+
+    onClose: () => {
+      document.querySelector(".gallery").onclick;
+
+      document.removeEventListener("keyup", e);
+    },
+  });
   instance.show();
 
-  document.addEventListener("keydown", (e) => {
-    if (e.code === "Escape") {
-      instance.close();
-    }
-  });
+  // А можна булоб так і так лаконічніше набагато
+
+  // document.addEventListener("keydown", (e) => {
+  //   if (e.code === "Escape") {
+  //     instance.close();
+  //     document.removeEventListener("keyup", e);
+  //   }
+  // });
 }
